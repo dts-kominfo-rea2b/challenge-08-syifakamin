@@ -1,41 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Challenge - DOM</title>
-  </head>
-  <body>
-    <div id="app">
-      <!-- TODO: Buatlah sebuah header dengan id todo-title -->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Challenge - DOM</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;500&display=swap');
+
+    *,
+    *::before,
+    *::after {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rubik';
+      height: 100vh;
+      background: #066acd;
+    }
+
+    #app {
+      padding: 2px;
+      width: 40%;
+      top: 50%;
+      left: 50%;
+      background: white;
+      border-radius: 10px;
+      min-width: 450px;
+      position: absolute;
+      min-height: 100px;
+      transform: translate(-50%, -50%);
+    }
+
+    #input {
+      position: relative;
+      padding: 30px 20px;
+    }
+
+    #input input {
+      width: 75%;
+      height: 45px;
+      padding: 12px;
+      color: #111111;
+      font-weight: 500;
+      position: relative;
+      border-radius: 5px;
+      font-family: 'Rubik';
+      font-size: 15px;
+      border: 2px solid #d1d3d4;
+    }
+
+    #input input:focus {
+      outline: none;
+      border-color: #0d75ec;
+    }
+
+    #input button {
+      position: relative;
+      float: right;
+      font-weight: 500;
+      font-size: 13px;
+      background-color: #0d75ec;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      outline: none;
+      width: 22%;
+      height: 45px;
+      border-radius: 5px;
+      font-family: 'Rubik';
+    }
+
+    #output {
+      border-radius: 10px;
+      width: 100%;
+      position: relative;
+      background-color: #ffffff;
+      padding: 30px 20px;
+      margin-top: 10px;
+    }
+
+    #output ul {
+      border-radius: 5px;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #939697;
+      cursor: pointer;
+      background-color: #c5e1e6;
+      height: 50px;
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      display: flex;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- TODO: Buatlah sebuah header dengan id todo-title -->
+    <h2 id="todo-title" style="text-align: center;">To-do List</h1>
+
       <!-- TODO: Buatlah sebuah subtitle dengan id todo-subtitle -->
+      <h5 id="todo-subtitle" style="text-align: center;">Tulis aktivitasmu disini :D</h5>
 
       <!-- Section: input -->
-      <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
-      <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
+      <section id="input">
+        <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
+        <input type="text" name="todo-input" id="todo-input" placeholder="tulis aktivitasmu disini...">
+        <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
+        <button type="submit" id="todo-submit">Tambahkan</button>
+
+      </section>
 
       <!-- Section output -->
-      <!-- TODO: Buatlah sebuah <ul> dengan id todo-output -->
-    </div>
+      <section id="output">
+        <!-- TODO: Buatlah sebuah <ul> dengan id todo-output -->
+        <ul id="todo-output"></ul>
+      </section>
+  </div>
 
-    <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
-    <script>
-      // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
-      let button;
-      let input;
-      let output;
+  <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
+  <script>
+    // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
+    let button = document.getElementById('todo-submit');
+    let input = document.getElementById('todo-input');
+    let output = document.getElementById('todo-output');
 
-      // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
-      // Fungsi yang digunakan untuk menambahkan tulisan
-      // Jangan ubah cara deklarasi fungsinya, cukup isi saja
-      function fnClickHandler(toDoItem) {}
+    let inputValue = '';
 
-      // TODO: register event onclick / addEventListener untuk button
-      // akan menjalankan fungsi fnClickHandler
-      
-      // TODO: register event onkeypress / addEventListener untuk input
-      // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
-    </script>
-  </body>
+    // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
+    // Fungsi yang digunakan untuk menambahkan tulisan
+    // Jangan ubah cara deklarasi fungsinya, cukup isi saja
+
+    function fnClickHandler(toDoItem) {
+      const li = document.createElement('li');
+      li.textContent = toDoItem;
+      output.appendChild(li);
+    }
+
+
+    // TODO: register event onclick / addEventListener untuk button
+    // akan menjalankan fungsi fnClickHandler
+
+    button.addEventListener('click', (event) => {
+      fnClickHandler(input.value);
+
+      input.value = '';
+    });
+
+
+    // TODO: register event onkeypress / addEventListener untuk input
+    // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
+    input.addEventListener('onkeypress', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+
+        fnClickHandler(input.value);
+        input.value = '';
+      }
+    });
+
+  </script>
+</body>
+
 </html>
